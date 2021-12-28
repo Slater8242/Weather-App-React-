@@ -1,0 +1,16 @@
+body {
+  background-color: #999;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#desc {
+  display: flex;
+  align-items: center;
+  h1{
+    margin-left: 15px;
+  }
+}
