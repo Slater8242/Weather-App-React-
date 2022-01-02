@@ -1,11 +1,9 @@
-// import fetch from "node-fetch";
+const Connection = () => {
+  const api_base = "https://api.weatherbit.io/v2.0/";
+  const api_key = "key=6ca7dcac211346a1ae03e110c4c973c1";
+  const api_key2 = "key=bb240c94921f437ab1bf88e3fde4184c";
 
-export default class Connection {
-  api_base = "https://api.weatherbit.io/v2.0/";
-  api_key = "key=6ca7dcac211346a1ae03e110c4c973c1";
-  log = console.log;
-
-  data = async (url) => {
+  const data = async (url) => {
     let res = await fetch(url);
     if (!res.ok) {
       throw new Error(`could not fetch ${url} status: ${res.status}`);
@@ -13,16 +11,15 @@ export default class Connection {
     return await res.json();
   };
 
-  dataInfo = async (cityName = "baku") => {
-    // this.ipLocation().then((item) => item);
-    const city = await this.data(
-      `${this.api_base}current?city=${cityName}&${this.api_key}&lang=ru`
+  const dataInfo = async (cityName) => {
+    const city = await data(
+      `${api_base}current?city=${cityName}&${api_key}&lang=ru`
     ).then((data) => data.data);
     const mapped = city[0];
-    return this.transformData(mapped);
+    return transformData(mapped);
   };
 
-  transformData = (data) => {
+  const transformData = (data) => {
     return {
       city: data.city_name,
       country: data.country_code,
@@ -38,4 +35,6 @@ export default class Connection {
       }
     };
   };
-}
+  return dataInfo;
+};
+export default Connection;

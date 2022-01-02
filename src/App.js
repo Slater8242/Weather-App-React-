@@ -8,8 +8,8 @@ const App = () => {
   let [weather, setWeather] = useState({});
   let [data, setData] = useState({});
 
-  const conn = new Connection();
-  const ip = new ipLocation();
+  const conn = Connection();
+  const ip = ipLocation();
   const icons = "https://www.weatherbit.io/static/img/icons/";
 
   const dataLoaded = (info) => {
@@ -19,12 +19,12 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    conn.dataInfo(value).then((item) => dataLoaded(item));
+    conn(value).then((item) => dataLoaded(item));
   };
 
   useEffect(() => {
-    ip.ipLocation().then((city) => {
-      conn.dataInfo(city).then((item) => dataLoaded(item));
+    ip.then((city) => {
+      conn(city).then((item) => dataLoaded(item));
     });
   }, []);
 
